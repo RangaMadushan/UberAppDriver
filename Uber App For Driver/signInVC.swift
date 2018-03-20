@@ -33,7 +33,11 @@ class signInVC: UIViewController {
                 if message != nil {
                     self.alertTheUser(title: "Problem With Authentication", message: message!)
                 } else {
-                
+                    UberHandler.Instance.driver = self.emailTextField.text!;
+                    
+                    self.emailTextField.text = "";
+                    self.passwordTextField.text = "";
+                    
              self.performSegue(withIdentifier: self.DRIVER_SEGUE, sender: nil)
                 }
                 
@@ -55,6 +59,11 @@ class signInVC: UIViewController {
                     self.alertTheUser(title: "Problem With Creating A New User", message: message!)
                 } else {
                 
+                    UberHandler.Instance.driver = self.emailTextField.text!;
+                    
+                    self.emailTextField.text = "";
+                    self.passwordTextField.text = "";
+                    
                     self.performSegue(withIdentifier: self.DRIVER_SEGUE, sender: nil)
                 }
             })

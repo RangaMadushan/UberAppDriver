@@ -17,6 +17,7 @@
 		BCB9BB0F205D959B00C8CA82 /* DriverVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB9BB0E205D959B00C8CA82 /* DriverVC.swift */; };
 		BCB9BB15205DABEF00C8CA82 /* DBReference.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB9BB14205DABEF00C8CA82 /* DBReference.swift */; };
 		BCB9BB17205DAC3F00C8CA82 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB9BB16205DAC3F00C8CA82 /* Constants.swift */; };
+		BCFD13F0206028330013B2C5 /* UberHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCFD13EF206028330013B2C5 /* UberHandler.swift */; };
 		E11CC4E5AF726C20C4EB5FC7 /* Pods_Uber_App_For_Driver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFC667AD6B34EFF2E776FC99 /* Pods_Uber_App_For_Driver.framework */; };
 /* End PBXBuildFile section */
 
@@ -35,6 +36,7 @@
 		BCB9BB0E205D959B00C8CA82 /* DriverVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DriverVC.swift; sourceTree = "<group>"; };
 		BCB9BB14205DABEF00C8CA82 /* DBReference.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DBReference.swift; sourceTree = "<group>"; };
 		BCB9BB16205DAC3F00C8CA82 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		BCFD13EF206028330013B2C5 /* UberHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UberHandler.swift; sourceTree = "<group>"; };
 		EFC667AD6B34EFF2E776FC99 /* Pods_Uber_App_For_Driver.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Uber_App_For_Driver.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -123,6 +125,7 @@
 				BCB9BB07205D2DBE00C8CA82 /* AuthProvider.swift */,
 				BCB9BB14205DABEF00C8CA82 /* DBReference.swift */,
 				BCB9BB16205DAC3F00C8CA82 /* Constants.swift */,
+				BCFD13EF206028330013B2C5 /* UberHandler.swift */,
 			);
 			name = Plugins;
 			sourceTree = "<group>";
@@ -276,6 +279,7 @@
 				BCB9BAFF205D06A800C8CA82 /* signInVC.swift in Sources */,
 				BCB9BB0F205D959B00C8CA82 /* DriverVC.swift in Sources */,
 				BCB9BB15205DABEF00C8CA82 /* DBReference.swift in Sources */,
+				BCFD13F0206028330013B2C5 /* UberHandler.swift in Sources */,
 				BC22A4D6205B1A98006A0EB1 /* AppDelegate.swift in Sources */,
 				BCB9BB17205DAC3F00C8CA82 /* Constants.swift in Sources */,
 			);
