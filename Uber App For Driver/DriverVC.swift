@@ -18,8 +18,10 @@ class DriverVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, 
     
     private var locationManager = CLLocationManager();
     private var userLocation: CLLocationCoordinate2D?;
-//    private var riderLocation: CLLocationCoordinate2D?;
+    private var riderLocation: CLLocationCoordinate2D?;
 
+    private var timer = Timer();
+    
     private var acceptedUber = false;
     private var driverCanceledUber = false;
     
@@ -56,6 +58,17 @@ class DriverVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, 
             myMap.setRegion(region, animated: true);
             myMap.removeAnnotations(myMap.annotations);
             
+            if riderLocation != nil {
+                
+                if acceptedUber {
+                let riderAnnotation = MKPointAnnotation();
+                riderAnnotation.coordinate = riderLocation!;
+                riderAnnotation.title = "Rider Location";
+                myMap.addAnnotation(riderAnnotation);
+                }
+            }
+            
+            
             let annotation = MKPointAnnotation();
             annotation.coordinate = userLocation!;
             annotation.title = "Driver Location";
@@ -89,8 +102,21 @@ class DriverVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, 
         acceptedUber = false;
         acceptUberBtn.isHidden = true;
         //invalidate timer
+        timer.invalidate();
         
     }
+    
+    func updateRidersLocation(lat: Double, long: Double) {
+        riderLocation = CLLocationCoordinate2D(latitude: lat, longitude: long);
+    }
+    
+    
+    func updateDriversLocation() {
+        UberHandler.Instance.updateDriverLocation(lat: (userLocation?.latitude)!, long: (userLocation?.longitude)!);
+    }//func updte driver location for give it to uber handler
+    
+    
+    
     
     
     @IBAction func cancelUber(_ sender: AnyObject) {
@@ -100,7 +126,9 @@ class DriverVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, 
             acceptUberBtn.isHidden = true;
             UberHandler.Instance.cancelUberForDriver();
             
-            //invalidate timer
+            //invalidate timer uber cancel karpu nisa dn
+            //timer eka nathrakarann ona ekai
+            timer.invalidate();
             
         }
         
@@ -111,7 +139,13 @@ class DriverVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, 
        
         if AuthProvider.Instance.logOut() {
         
-        dismiss(animated: true, completion: nil)
+            if acceptedUber {
+                acceptUberBtn.isHidden = true;
+                UberHandler.Instance.cancelUberForDriver();
+                timer.invalidate()
+            }
+            
+            dismiss(animated: true, completion: nil)
             
         }else{
             //Problem with loging out
@@ -119,8 +153,13 @@ class DriverVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, 
             
           /*  self.alertTheUser(title: "Could Not Logout", message: "We could not logout at the moment, please try again later"); */
         }
+        //methanth one nm timer.invalidate() dann puluwan
         
     }//logout btn
+    
+    
+    
+    
     
     private func uberRequest(title: String, message: String, requestAlive: Bool){
         
@@ -132,6 +171,13 @@ class DriverVC: UIViewController, MKMapViewDelegate, CLLocationManagerDelegate, 
                 
                 self.acceptedUber = true;
                 self.acceptUberBtn.isHidden = false;
+                
+                
+                self.timer = Timer.scheduledTimer(timeInterval: TimeInterval(10), target: self, selector: #selector(DriverVC.updateDriversLocation), userInfo: nil, repeats: true);
+                
+                /*methandi karnne kalin hadpu timer eka use kargena api driver location kiyn method eka continueosly update karnwa target self kiyanne me class ekema nisa selector kiyanne class ekai method ekai */
+                
+                
                 
                 //inform that we accepted the uber
                 UberHandler.Instance.uberAccepted(lat: Double((self.userLocation?.latitude)!), long:Double((self.userLocation?.longitude)!));

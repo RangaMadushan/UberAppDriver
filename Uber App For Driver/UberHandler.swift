@@ -17,6 +17,7 @@ protocol UberController: class {
     func acceptUber(lat: Double, long: Double);
     func riderCanceledUber();
     func uberCanceled();
+    func updateRidersLocation(lat: Double, long: Double);
 }
 
 class UberHandler {
@@ -69,6 +70,20 @@ class UberHandler {
             
         }
         
+        //RIDER UPDATING LOCATION
+        DBProvider.Instance.requestRef.observe(DataEventType.childChanged) { (snapshot: DataSnapshot) in
+            
+            if let data = snapshot.value as? NSDictionary {
+                if let lat = data[Constants.LATITUDE] as? Double {
+                    if let long = data[Constants.LONGITUDE] as? Double{
+                        
+                        self.delegate?.updateRidersLocation(lat: lat, long: long);
+                    }
+                }
+            }
+        }
+        
+        
         //DRIVER ACCEPT UBER
         DBProvider.Instance.requestAcceptedRef.observe(DataEventType.childAdded) { (snapshot: DataSnapshot) in
             
@@ -114,6 +129,10 @@ class UberHandler {
         DBProvider.Instance.requestAcceptedRef.child(driver_id).removeValue();
     }
     
+    
+    func updateDriverLocation(lat: Double, long: Double){
+        DBProvider.Instance.requestAcceptedRef.child(driver_id).updateChildValues([Constants.LATITUDE: lat, Constants.LONGITUDE: long]);
+    }//func for update driver location
     
 }//class
 
